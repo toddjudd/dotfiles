@@ -5,7 +5,7 @@ add_newline = true
 
 # Change the default prompt format
 format = """\
-[╭╴](238)$env_var\
+[╭╴](238)$os $env_var\
 $all[╰─](238)$character"""
 
 # Change the default prompt characters
@@ -26,6 +26,13 @@ style_root = "black bold"
 format = "[$user]($style) "
 disabled = true  # disable in powershell
 show_always = false
+
+[os]
+disabled = false
+style = 'yellow bold blink'
+
+[os.symbols]
+Ubuntu  = "󰻀"
 
 [directory]
 truncation_length = 3
@@ -78,6 +85,7 @@ format = "via [ $version](bold green) "
 
 [ruby]
 format = "via [ $version]($style) "
+detect_variables=[]
 
 [kubernetes]
 format = 'on [ $context\($namespace\)](bold purple) '
