@@ -15,3 +15,6 @@ eval "$(starship init zsh)"
 # export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # PROMPT="${PROMPT}"$'\n\n'
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+autoload -Uz compinit && compinit
