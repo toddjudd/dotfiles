@@ -18,3 +18,16 @@ eval "$(starship init zsh)"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 autoload -Uz compinit && compinit
+
+# pnpm
+export PNPM_HOME="/Users/toddjudd/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# https://github.com/whiplashmerch/wl
+# WL
+export PATH="/Users/toddjudd/git/wl/exe:$PATH"
+# WL end

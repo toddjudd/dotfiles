@@ -1,0 +1,10 @@
+[playground]
+profile_name = "whiplash-playground"
+pr_cluster_arn = "arn:aws:ecs:us-east-1:226386421052:cluster/eqa-core-pr14123-cluster"
+pr_web_service = "arn:aws:ecs:us-east-1:226386421052:service/eqa-core-pr14123-cluster/eqa-core-pr14123-core-web-service"
+pr_task = "arn:aws:ecs:us-east-1:226386421052:task/eqa-core-pr14123-cluster/2973978ab0614acb90ea22a85c41820f"
+talkback = "verbose"
+pr_env_cmd = "aws ecs execute-command --cluster \"eqa-core-pr14123-cluster\" --task \"2973978ab0614acb90ea22a85c41820f\" --interactive --command \"/usr/src/app/bin/rails c\" --profile \"whiplash-playground\" --region \"us-east-1\" --container \"eqa-core-pr14123-core-web-task\" "
+
+[user]
+talkback = "quiet"
