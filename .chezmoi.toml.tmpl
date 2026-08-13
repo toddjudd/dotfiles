@@ -1,0 +1,4 @@
+{{- $pandiumMcpPath := promptStringOnce . "pandiumMcpPath" "Absolute path to your local pandium-mcp checkout (forward slashes, e.g. C:/git/pandium-mcp or /Users/todd/git/pandium-mcp)" -}}
+
+[data]
+    pandiumMcpPath = {{ $pandiumMcpPath | quote }}

@@ -1,0 +1,10 @@
+# Repo documentation that should live in the source only, not in $HOME.
+README.md
+LICENSE
+
+# Files that exist in the destination but chezmoi should never manage/remove.
+# The opencode plugin runtime writes these into ~/.config/opencode locally.
+.config/opencode/node_modules
+.config/opencode/package.json
+.config/opencode/package-lock.json
+.config/opencode/bun.lock

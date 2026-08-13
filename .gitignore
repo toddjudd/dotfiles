@@ -1,0 +1,6 @@
+# Local chezmoi state should never be committed
+/.git/
+
+# OS junk
+.DS_Store
+Thumbs.db
