@@ -1,4 +1,6 @@
 {{- $pandiumMcpPath := promptStringOnce . "pandiumMcpPath" "Absolute path to your local pandium-mcp checkout (forward slashes, e.g. C:/git/pandium-mcp or /Users/todd/git/pandium-mcp)" -}}
+{{- $mcpPath := promptStringOnce . "mcpPath" "Optional PATH to prepend to MCP server environments (needed on WSL for asdf shims, e.g. /home/todd/.asdf/shims:/home/todd/.local/bin:/usr/local/bin:/usr/bin:/bin). Leave blank on macOS/Windows" "" -}}
 
 [data]
     pandiumMcpPath = {{ $pandiumMcpPath | quote }}
+    mcpPath = {{ $mcpPath | quote }}

@@ -14,7 +14,8 @@
       ],
       "enabled": true,
       "environment": {
-        "ado_mcp_project": "Whiplash Platform",
+        "ado_mcp_project": "Whiplash Platform",{{ if .mcpPath }}
+        "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },
 
@@ -38,7 +39,8 @@
       "enabled": true,
       "environment": {
         "PANDIUM_ENV": "sandbox",
-        "PANDIUM_API_KEY": "op://kyov2mu6cfgk3i5bqnn4jjvr6a/Pandium Sandbox API/api_key",
+        "PANDIUM_API_KEY": "op://kyov2mu6cfgk3i5bqnn4jjvr6a/Pandium Sandbox API/api_key",{{ if .mcpPath }}
+        "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },
 
@@ -57,7 +59,8 @@
       "enabled": false,
       "environment": {
         "PANDIUM_ENV": "production",
-        "PANDIUM_API_KEY": "op://kyov2mu6cfgk3i5bqnn4jjvr6a/Pandium Production API/api_key",
+        "PANDIUM_API_KEY": "op://kyov2mu6cfgk3i5bqnn4jjvr6a/Pandium Production API/api_key",{{ if .mcpPath }}
+        "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },
     "sanity": {
@@ -82,7 +85,8 @@
       "environment": {
         "ZENDESK_SUBDOMAIN": "whiplash",
         "ZENDESK_EMAIL": "todd.judd@whiplash.com",
-        "ZENDESK_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/iqn6eho7xiapsznni2aqvoiu5y/api_key",
+        "ZENDESK_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/iqn6eho7xiapsznni2aqvoiu5y/api_key",{{ if .mcpPath }}
+        "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },
   },

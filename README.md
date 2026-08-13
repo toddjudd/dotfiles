@@ -23,6 +23,12 @@ The only per-machine value is `pandiumMcpPath` — the absolute path to your loc
 machine-local `~/.config/chezmoi/chezmoi.toml` (never committed). It's injected
 into `opencode.jsonc` via the `{{ .pandiumMcpPath }}` template variable.
 
+A second optional per-machine value is `mcpPath`. When set, it's injected as a
+`PATH` entry into every MCP server's `environment` in `opencode.jsonc`. This is
+needed on WSL so version-manager shims (e.g. asdf) resolve `npx`/`node`/`op`,
+e.g. `/home/todd/.asdf/shims:/home/todd/.local/bin:/usr/local/bin:/usr/bin:/bin`.
+Leave it blank on macOS/Windows to omit the `PATH` entirely.
+
 ## Onboarding a new machine
 
 ### 1. Install prerequisites
