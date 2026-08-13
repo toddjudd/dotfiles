@@ -3,7 +3,7 @@ Host *
 {{- if eq .chezmoi.os "darwin" }}
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 {{- else if eq .chezmoi.os "windows" }}
-  IdentityAgent \\.\pipe\openssh-ssh-agent
+  IdentityAgent \\\\.\\pipe\\openssh-ssh-agent
 {{- else if eq .chezmoi.os "linux" }}
   # WSL: 1Password SSH agent forwarded from Windows via npiperelay
   IdentityAgent ~/.1password/agent.sock
