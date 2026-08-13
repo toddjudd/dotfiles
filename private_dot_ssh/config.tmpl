@@ -8,3 +8,45 @@ Host *
   # WSL: 1Password SSH agent forwarded from Windows via npiperelay
   IdentityAgent ~/.1password/agent.sock
 {{- end }}
+
+{{- if ne .chezmoi.os "darwin" }}
+Host mac
+  HostName 192.168.50.233
+  User toddjudd
+
+# Billy server
+Host 192.168.0.2
+  HostName 192.168.0.2
+  User todd
+  Port 7722
+
+# Video server
+Host 192.168.50.86
+   HostName 192.168.50.86
+   User tracer
+
+Host duke.home.t482.io
+  HostName duke.home.t482.io
+  User tracer
+
+{{- end }}
+
+{{- if eq .chezmoi.os "windows" }}
+# --- SSH tunnel aliases (used by the auto-restart scheduled tasks) ---
+Host duke-tunnel
+  HostName duke.home.t482.io
+  User tracer
+  LocalForward 4097 127.0.0.1:4096
+  ExitOnForwardFailure yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
+
+Host mac-tunnel
+  HostName 192.168.50.233
+  User toddjudd
+  LocalForward 4098 127.0.0.1:4096
+  ExitOnForwardFailure yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
+{{- end }}
+
