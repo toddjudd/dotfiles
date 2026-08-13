@@ -18,12 +18,12 @@ LICENSE.md
 # macOS-only assets
 .config/iterm2
 .config/karabiner
-.ssh/config
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
-# Not applicable on Windows
+# Not applicable on Windows (managed on macOS and WSL/Linux only)
 .zshrc
 .config/.zsh
+.ssh/config
 {{ end }}
 {{ if ne .chezmoi.os "windows" }}
 # Windows-only assets
