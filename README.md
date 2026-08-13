@@ -1,94 +1,99 @@
-# agentfiles
+# dotfiles
 
-My portable AI tooling config, managed with [chezmoi](https://www.chezmoi.io/)
-and synced across macOS, Windows, and WSL.
+Todd's unified config — shell, editor/terminal, GUI apps, and AI tooling —
+managed with [chezmoi](https://www.chezmoi.io/) and synced across macOS,
+Windows, and WSL from a single source of truth.
+
+> This repo supersedes the old symlink-based `dotfiles` layout and the
+> experimental `agentfiles` repo. The pre-migration state is preserved on the
+> `pre-chezmoi` tag for rollback.
 
 ## What's in here
 
-| Destination | Source |
-|---|---|
-| `~/.config/opencode/opencode.jsonc` | `dot_config/opencode/opencode.jsonc.tmpl` |
-| `~/.config/opencode/AGENTS.md` | `dot_config/opencode/AGENTS.md` |
-| `~/.config/opencode/agents/` | `dot_config/opencode/agents/` |
-| `~/.agents/skills/` | `dot_agents/skills/` |
+| Destination | Source | OS |
+|---|---|---|
+| `~/.config/opencode/opencode.jsonc` | `dot_config/opencode/opencode.jsonc.tmpl` | all |
+| `~/.config/opencode/AGENTS.md`, `agents/` | `dot_config/opencode/` | all |
+| `~/.agents/skills/` | `dot_agents/skills/` | all |
+| `~/.config/gh/config.yml` | `dot_config/gh/private_config.yml` | all |
+| `~/.config/starship/starship.toml` | `dot_config/starship/` | all |
+| `~/.config/wl/config` | `dot_config/wl/` | all |
+| `~/.gitconfig` | `dot_gitconfig` | all |
+| `~/.zshrc`, `~/.config/.zsh/` | `dot_zshrc.tmpl`, `dot_config/dot_zsh/` | mac + linux |
+| `~/.config/iterm2/`, `karabiner/` | `dot_config/` | mac |
+| `~/.ssh/config` | `private_dot_ssh/config.tmpl` | mac (+ per-OS agent) |
+| `~/.config/powershell/…` | `dot_config/powershell/` | windows |
 
-Secrets are **not** stored here. All API keys are resolved at runtime via
-1Password `op://` references in `opencode.jsonc`, so this repo is safe to keep
-private without leaking credentials.
+Per-OS inclusion is enforced via `{{ .chezmoi.os }}` guards in `.chezmoiignore`
+and templates.
+
+### Secrets
+
+No secrets are stored here. OpenCode API keys resolve at runtime via 1Password
+`op://` references. `~/.config/gh/hosts.yml` (which gh writes with an
+`oauth_token` at runtime) is listed in `.chezmoiignore` so it is **never**
+managed or committed.
+
+### SSH / 1Password
+
+`~/.ssh/config` uses the 1Password SSH agent via a per-OS `IdentityAgent`:
+
+- macOS: `~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock`
+- Windows: `\\.\pipe\openssh-ssh-agent`
+- WSL: `~/.1password/agent.sock` (forwarded from Windows via `npiperelay`)
 
 ## Machine-specific values
 
-The only per-machine value is `pandiumMcpPath` — the absolute path to your local
-`pandium-mcp` checkout. chezmoi prompts for it on `init` and stores it in the
-machine-local `~/.config/chezmoi/chezmoi.toml` (never committed). It's injected
-into `opencode.jsonc` via the `{{ .pandiumMcpPath }}` template variable.
+Prompted on `chezmoi init`, stored in the machine-local
+`~/.config/chezmoi/chezmoi.toml` (never committed):
 
-A second optional per-machine value is `mcpPath`. When set, it's injected as a
-`PATH` entry into every MCP server's `environment` in `opencode.jsonc`. This is
-needed on WSL so version-manager shims (e.g. asdf) resolve `npx`/`node`/`op`,
-e.g. `/home/todd/.asdf/shims:/home/todd/.local/bin:/usr/local/bin:/usr/bin:/bin`.
-Leave it blank on macOS/Windows to omit the `PATH` entirely.
+- `pandiumMcpPath` — absolute path (forward slashes) to your local
+  `pandium-mcp` checkout. Injected into `opencode.jsonc`.
+- `mcpPath` — optional `PATH` prepended into every MCP server `environment`.
+  Needed on WSL for asdf shims, e.g.
+  `/home/todd/.asdf/shims:/home/todd/.local/bin:/usr/local/bin:/usr/bin:/bin`.
+  Leave blank on macOS/Windows.
 
 ## Onboarding a new machine
 
-### 1. Install prerequisites
+### 1. Prerequisites
 
 - [chezmoi](https://www.chezmoi.io/install/)
 - [1Password CLI](https://developer.1password.com/docs/cli/get-started/) (`op`)
-- [OpenCode](https://opencode.ai)
-- Node.js (for `npx`-based MCP servers)
+  + the 1Password desktop app with the SSH agent enabled
+- [OpenCode](https://opencode.ai) and Node.js (for `npx` MCP servers)
 - A local checkout of `pandium-mcp` (note its absolute path)
 
 ### 2. Pull and apply
 
-This repo lives in a normal git directory (e.g. `~/git/agentfiles`), not the
-default hidden chezmoi source dir. Use `--source` to clone it there:
+This repo lives in a normal git directory, not the default hidden chezmoi
+source dir. Use `--source`:
 
 ```sh
 # Windows (from any shell)
-chezmoi init --apply --source C:/git/agentfiles git@github.com:toddjudd/agentfiles.git
+chezmoi init --apply --source C:/git/dotfiles git@github.com:toddjudd/dotfiles.git
 
 # macOS / WSL
-chezmoi init --apply --source ~/git/agentfiles git@github.com:toddjudd/agentfiles.git
+chezmoi init --apply --source ~/git/dotfiles git@github.com:toddjudd/dotfiles.git
 ```
 
-`sourceDir` is then persisted automatically in the machine-local
-`~/.config/chezmoi/chezmoi.toml` (via `.chezmoi.sourceDir` in the config
-template), so later `chezmoi` commands find the repo without repeating `--source`.
-
-chezmoi will prompt for `pandiumMcpPath`. Enter the absolute path with **forward
-slashes**, e.g.:
-
-- Windows: `C:/git/pandium-mcp`
-- macOS:   `/Users/todd/git/pandium-mcp`
-- WSL:     `/home/todd/git/pandium-mcp`
+`sourceDir` is persisted automatically in the machine-local
+`~/.config/chezmoi/chezmoi.toml`, so later commands find the repo without
+`--source`.
 
 ### 3. WSL note
 
 Treat WSL as an independent Linux machine. Run `chezmoi init --apply` inside the
-WSL home (`~`), **not** against a `/mnt/c/...` Windows path. Each environment
-keeps its own `chezmoi.toml` with the correct `pandiumMcpPath`.
+WSL home (`~`), **not** against a `/mnt/c/...` Windows path. Seed `mcpPath` with
+the asdf-shims PATH there, and confirm 1Password SSH-agent forwarding for pushes.
 
 ## Daily workflow
 
 ```sh
-# Edit a managed file (opens the source, applies on save)
-chezmoi edit ~/.config/opencode/opencode.jsonc
-
-# Or edit the real file, then pull the change back into the source
-chezmoi add ~/.config/opencode/opencode.jsonc
-
-# See what would change
-chezmoi diff
-
-# Apply source -> home
-chezmoi apply
-
-# Push changes to the shared repo
-chezmoi cd
-git add -A && git commit -m "update opencode config" && git push
-exit
-
-# On another machine: pull latest and apply
-chezmoi update
+chezmoi edit ~/.config/opencode/opencode.jsonc   # edit source, applies on save
+chezmoi add ~/.config/opencode/opencode.jsonc    # or pull a real edit back in
+chezmoi diff                                      # preview
+chezmoi apply                                     # source -> home
+chezmoi cd && git add -A && git commit -m "…" && git push && exit
+chezmoi update                                    # on another machine
 ```

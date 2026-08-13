@@ -1,0 +1,31 @@
+[playground]
+profile_name = "whiplash-playground"
+pr_cluster_arn = "arn:aws:ecs:us-east-1:226386421052:cluster/eqa-fev-pr1391-cluster"
+pr_web_service = "arn:aws:ecs:us-east-1:226386421052:service/eqa-fev-pr1391-cluster/eqa-fev-pr1391-core-web-service"
+pr_task = "arn:aws:ecs:us-east-1:226386421052:task/eqa-fev-pr1391-cluster/c166ea941f7c4794ae584122490bf0ce"
+talkback = "verbose"
+pr_env_cmd = "aws ecs execute-command --cluster \"eqa-fev-pr1391-cluster\" --task \"c166ea941f7c4794ae584122490bf0ce\" --interactive --command \"/usr/src/app/bin/rails c\" --profile \"whiplash-playground\" --region \"us-east-1\" --container \"eqa-fev-pr1391-core-web-task\" "
+
+[user]
+talkback = "quiet"
+
+[sandbox]
+profile_name = "whiplash-sandbox"
+pr_cluster_arn = "arn:aws:ecs:us-east-1:654654579380:cluster/whiplash-sandbox-ecs-fargate-cluster"
+pr_web_service = "arn:aws:ecs:us-east-1:654654579380:service/whiplash-sandbox-ecs-fargate-cluster/ixapi"
+pr_task = "arn:aws:ecs:us-east-1:654654579380:task/whiplash-sandbox-ecs-fargate-cluster/104c6cb4c9434f38ab5b159ed75174e4"
+pr_env_cmd = "aws ecs execute-command --cluster \"whiplash-sandbox-ecs-fargate-cluster\" --task \"104c6cb4c9434f38ab5b159ed75174e4\" --interactive --command \"/usr/src/app/bin/rails c\" --profile \"whiplash-sandbox\" --region \"us-east-1\" --container \"whiplash-sandbox-ixapi-web\" "
+
+[stable]
+profile_name = "whiplash-stable"
+pr_cluster_arn = "arn:aws:ecs:us-east-1:966145761657:cluster/whiplash-stable-ecs-fargate-cluster"
+pr_web_service = "arn:aws:ecs:us-east-1:966145761657:service/whiplash-stable-ecs-fargate-cluster/core"
+pr_task = "arn:aws:ecs:us-east-1:966145761657:task/whiplash-stable-ecs-fargate-cluster/1565b17176f744ab9e4b0bd350ed3fad"
+pr_env_cmd = "aws ecs execute-command --cluster \"whiplash-stable-ecs-fargate-cluster\" --task \"1565b17176f744ab9e4b0bd350ed3fad\" --interactive --command \"/usr/src/app/bin/rails c\" --profile \"whiplash-stable\" --region \"us-east-1\" --container \"whiplash-stable-core-web\" "
+
+[production]
+profile_name = "whiplash-production"
+pr_cluster_arn = "arn:aws:ecs:us-east-1:891376948375:cluster/whiplash-production-ecs-fargate-cluster"
+pr_web_service = "arn:aws:ecs:us-east-1:891376948375:service/whiplash-production-ecs-fargate-cluster/ixapi"
+pr_task = "arn:aws:ecs:us-east-1:891376948375:task/whiplash-production-ecs-fargate-cluster/dd448b77af334f9ca72d1bbf15a37ac3"
+pr_env_cmd = "aws ecs execute-command --cluster \"whiplash-production-ecs-fargate-cluster\" --task \"0ea3f0669f354c679865a8a48b61a8eb\" --interactive --command \"/usr/src/app/bin/rails c\" --profile \"whiplash-production\" --region \"us-east-1\" --container \"whiplash-production-core-web\" "

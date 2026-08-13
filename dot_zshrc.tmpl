@@ -1,0 +1,39 @@
+[[ -f ~/.config/.zsh/aliases.zsh ]] && source ~/.config/.zsh/aliases.zsh
+[[ -f ~/.config/.zsh/starship.zsh ]] && source ~/.config/.zsh/starship.zsh
+
+# Load Starship
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+eval "$(starship init zsh)"
+
+# # Load Direnv
+# eval "$(direnv hook zsh)"
+
+# # Load zoxide
+# eval "$(zoxide init zsh)"
+
+# # kubectl krew
+# export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# PROMPT="${PROMPT}"$'\n\n'
+
+# asdf 0.16+ is shim-based; ensure shims are on PATH (no asdf.sh sourcing needed)
+[[ -d "$HOME/.asdf/shims" ]] && export PATH="$HOME/.asdf/shims:$PATH"
+autoload -Uz compinit && compinit
+
+# pnpm
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{- else -}}
+export PNPM_HOME="$HOME/.local/share/pnpm"
+{{- end }}
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# https://github.com/whiplashmerch/wl
+# WL
+# removed to move to homebrew install of wl
+# export PATH="/Users/toddjudd/git/wl/exe:$PATH"
+# WL end

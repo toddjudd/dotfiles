@@ -1,0 +1,13 @@
+[user]
+	email = toddjudd@gmail.com
+	name = Todd Judd
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[credential "https://github.com"]
+	helper = 
+	helper = !{{ if eq .chezmoi.os "darwin" }}/opt/homebrew/bin/gh{{ else }}gh{{ end }} auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !{{ if eq .chezmoi.os "darwin" }}/opt/homebrew/bin/gh{{ else }}gh{{ end }} auth git-credential

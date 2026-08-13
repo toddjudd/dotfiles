@@ -1,6 +1,7 @@
 # Repo documentation that should live in the source only, not in $HOME.
 README.md
 LICENSE
+LICENSE.md
 
 # Files that exist in the destination but chezmoi should never manage/remove.
 # The opencode plugin runtime writes these into ~/.config/opencode locally.
@@ -8,3 +9,23 @@ LICENSE
 .config/opencode/package.json
 .config/opencode/package-lock.json
 .config/opencode/bun.lock
+
+# gh writes hosts.yml at runtime (contains an oauth_token). Never manage it.
+.config/gh/hosts.yml
+
+# ---- Per-OS guards ----------------------------------------------------------
+{{ if ne .chezmoi.os "darwin" }}
+# macOS-only assets
+.config/iterm2
+.config/karabiner
+.ssh/config
+{{ end }}
+{{ if eq .chezmoi.os "windows" }}
+# Not applicable on Windows
+.zshrc
+.config/.zsh
+{{ end }}
+{{ if ne .chezmoi.os "windows" }}
+# Windows-only assets
+.config/powershell
+{{ end }}
