@@ -41,9 +41,20 @@ Leave it blank on macOS/Windows to omit the `PATH` entirely.
 
 ### 2. Pull and apply
 
+This repo lives in a normal git directory (e.g. `~/git/agentfiles`), not the
+default hidden chezmoi source dir. Use `--source` to clone it there:
+
 ```sh
-chezmoi init --apply git@github.com:<you>/agentfiles.git
+# Windows (from any shell)
+chezmoi init --apply --source C:/git/agentfiles git@github.com:toddjudd/agentfiles.git
+
+# macOS / WSL
+chezmoi init --apply --source ~/git/agentfiles git@github.com:toddjudd/agentfiles.git
 ```
+
+`sourceDir` is then persisted automatically in the machine-local
+`~/.config/chezmoi/chezmoi.toml` (via `.chezmoi.sourceDir` in the config
+template), so later `chezmoi` commands find the repo without repeating `--source`.
 
 chezmoi will prompt for `pandiumMcpPath`. Enter the absolute path with **forward
 slashes**, e.g.:
