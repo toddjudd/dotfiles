@@ -2,6 +2,45 @@
 # Managed by chezmoi. Bash is the login shell on Linux (e.g. Duke); on macOS
 # zsh is primary and this file is unused but harmless.
 
+# --- PATH / environment for ALL shells (interactive + non-interactive) -------
+# These MUST come before the interactivity guard below so that non-interactive
+# shells (scripts, `bash -c`, tools/agents like opencode) also get them.
+# Only silent env/PATH setup belongs here; interactive-only setup (prompt,
+# aliases, completion, tool `init` evals) stays BELOW the guard.
+
+# rust/cargo env (also adds ~/.local/bin on some installs); source if present
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# user-local bin (starship and other user-installed tools live here)
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+
+# opencode
+[ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"
+
+# asdf 0.16+ is shim-based; ensure shims are on PATH (no asdf.sh sourcing needed)
+[ -d "$HOME/.asdf/shims" ] && export PATH="$HOME/.asdf/shims:$PATH"
+
+# pnpm
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{- else -}}
+export PNPM_HOME="$HOME/.local/share/pnpm"
+{{- end }}
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# cargo env (if installed separately from ~/.local/bin/env above)
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Make non-interactive bash (agents, `bash -c`, scripts) source this file so
+# they inherit the PATH set above. Bash only reads BASH_ENV for non-interactive
+# shells, and the exports above run before the interactivity guard, so this is
+# safe and cheap.
+export BASH_ENV="$HOME/.bashrc"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -53,26 +92,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# user-local bin (starship and other user-installed tools live here)
-[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
-
-# opencode
-[ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"
-
-# asdf 0.16+ is shim-based; ensure shims are on PATH (no asdf.sh sourcing needed)
-[ -d "$HOME/.asdf/shims" ] && export PATH="$HOME/.asdf/shims:$PATH"
-
-# pnpm
-{{ if eq .chezmoi.os "darwin" -}}
-export PNPM_HOME="$HOME/Library/pnpm"
-{{- else -}}
-export PNPM_HOME="$HOME/.local/share/pnpm"
-{{- end }}
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+# NOTE: PATH/env exports (asdf shims, ~/.local/bin, ~/.opencode/bin, pnpm,
+# cargo) and BASH_ENV were moved to the TOP of this file, above the
+# interactivity guard, so non-interactive shells (agents/tools) can find node,
+# npm, etc. without reinstalling them.
 
 # Load Starship (prompt). Falls back to the default bash prompt if starship
 # isn't installed yet.
