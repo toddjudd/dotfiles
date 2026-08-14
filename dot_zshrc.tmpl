@@ -1,6 +1,9 @@
 [[ -f ~/.config/.zsh/aliases.zsh ]] && source ~/.config/.zsh/aliases.zsh
 [[ -f ~/.config/.zsh/starship.zsh ]] && source ~/.config/.zsh/starship.zsh
 
+# user-local bin (starship and other user-installed tools live here)
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+
 # Load Starship
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 eval "$(starship init zsh)"

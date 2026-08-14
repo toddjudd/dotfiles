@@ -53,6 +53,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# user-local bin (starship and other user-installed tools live here)
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+
 # opencode
 [ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"
 
