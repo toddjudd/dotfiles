@@ -20,6 +20,7 @@ Windows, and WSL from a single source of truth.
 | `~/.config/wl/config` | `dot_config/wl/` | all |
 | `~/.gitconfig` | `dot_gitconfig` | all |
 | `~/.zshrc`, `~/.config/.zsh/` | `dot_zshrc.tmpl`, `dot_config/dot_zsh/` | mac + linux |
+| `~/.bashrc` | `dot_bashrc.tmpl` | mac + linux |
 | `~/.config/iterm2/`, `karabiner/` | `dot_config/` | mac |
 | `~/.ssh/config` | `private_dot_ssh/config.tmpl` | mac (+ per-OS agent) |
 | `~/.config/powershell/…` | `dot_config/powershell/` | windows |

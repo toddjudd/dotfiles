@@ -22,6 +22,7 @@ LICENSE.md
 {{ if eq .chezmoi.os "windows" }}
 # Not applicable on Windows (managed on macOS and WSL/Linux only)
 .zshrc
+.bashrc
 .config/.zsh
 .ssh/config
 {{ end }}
