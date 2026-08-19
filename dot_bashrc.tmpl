@@ -20,6 +20,10 @@
 # asdf 0.16+ is shim-based; ensure shims are on PATH (no asdf.sh sourcing needed)
 [ -d "$HOME/.asdf/shims" ] && export PATH="$HOME/.asdf/shims:$PATH"
 
+# rbenv is shim-based; ensure shims are on PATH (shims read .ruby-version, so no
+# `rbenv init` needed for basic ruby/rails/bundle resolution)
+[ -d "$HOME/.rbenv/shims" ] && export PATH="$HOME/.rbenv/shims:$PATH"
+
 # pnpm
 {{ if eq .chezmoi.os "darwin" -}}
 export PNPM_HOME="$HOME/Library/pnpm"
