@@ -3,6 +3,12 @@
 	name = Todd Judd
 [init]
 	defaultBranch = main
+{{- if eq .chezmoi.os "windows" }}
+[core]
+	# Force Windows system OpenSSH so git talks to the 1Password SSH agent
+	# named pipe. Git for Windows' bundled MSYS ssh cannot use the pipe.
+	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+{{- end }}
 [push]
 	autoSetupRemote = true
 [credential "https://github.com"]
