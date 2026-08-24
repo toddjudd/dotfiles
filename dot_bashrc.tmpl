@@ -22,8 +22,10 @@
 # asdf 0.16+ is shim-based; ensure shims are on PATH (no asdf.sh sourcing needed)
 [ -d "$HOME/.asdf/shims" ] && export PATH="$HOME/.asdf/shims:$PATH"
 
-# rbenv is shim-based; ensure shims are on PATH (shims read .ruby-version, so no
-# `rbenv init` needed for basic ruby/rails/bundle resolution)
+# rbenv: put both the rbenv command (~/.rbenv/bin) and the shims on PATH.
+# Shims read .ruby-version, so `rbenv init` isn't required for basic
+# ruby/rails/bundle resolution, but `rbenv` itself needs ~/.rbenv/bin.
+[ -d "$HOME/.rbenv/bin" ] && export PATH="$HOME/.rbenv/bin:$PATH"
 [ -d "$HOME/.rbenv/shims" ] && export PATH="$HOME/.rbenv/shims:$PATH"
 
 # pnpm
