@@ -1,3 +1,5 @@
+# This file is managed by chezmoi (source: dotfiles repo). Edit it there and run
+# `chezmoi apply`, not here. Note: the `gh` CLI may rewrite this file.
 # The current version of the config schema
 version: 1
 # What protocol to use when performing git operations. Supported values: ssh, https
