@@ -1,5 +1,12 @@
 # Global agent instructions
 
+## Repo Management
+
+All repos either live at C:/git/ on windows or ~/git/ on mac and linux. Relative to that path git/sandbox/ is for projects that can be delete at any time, or for messing around.
+
+- If another repository is mentioned it's appropriate to look for it in the this directory. I
+- if a repository needs to be created or cloned do so in this location.
+
 ## Azure DevOps ticket TLDRs
 
 When using the Azure DevOps (ADO) MCP tools to create or edit a work item /
