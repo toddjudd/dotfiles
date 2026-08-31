@@ -93,11 +93,19 @@
      // Integration Redux
     "integrations-redux-prod": {
       "type": "local",
-      "command": ["node", "{{ .reduxMcpPath }}/integrations-redux-mcp/build/index.js"],
-      "enabled": false,
+      "command": [
+        "op",
+        "run",
+        "--account",
+        "whiplash",
+        "--",
+        "node",
+        "{{ .reduxMcpPath }}/build/index.js",
+      ],
+      "enabled": true,
       "environment": {
         "REDUX_ENV": "production",
-        "REDUX_API_BASE_URL": "https://integrations-redux.getwhiplash.com/",
+        "REDUX_API_BASE_URL": "https://integrations-redux-api.getwhiplash.com",
         "REDUX_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/s5bqr4jzwdksi2g6fsevqgkr5y/token",{{ if .mcpPath }}
         "PATH": "{{ .mcpPath }}",{{ end }}
       },

@@ -8,7 +8,23 @@ model: github-copilot/claude-sonnet-4.6
 temperature: 0.1
 permission:
   edit: deny
-  bash: ask
+  bash:
+    "*": ask
+    # All git commands are allowed without prompting, including mutating ones
+    # (add/commit/checkout/fetch/pull/merge/rebase/push/reset/clean).
+    git: allow
+    "git *": allow
+    # ripgrep (read-only search).
+    rg: allow
+    "rg *": allow
+    # grep (read-only search).
+    grep: allow
+    "grep *": allow
+    # Node package tooling.
+    npm: allow
+    "npm *": allow
+    npx: allow
+    "npx *": allow
   read: allow
   glob: allow
   grep: allow
