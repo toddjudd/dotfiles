@@ -10,20 +10,20 @@ Windows, and WSL from a single source of truth.
 
 ## What's in here
 
-| Destination | Source | OS |
-|---|---|---|
-| `~/.config/opencode/opencode.jsonc` | `dot_config/opencode/opencode.jsonc.tmpl` | all |
-| `~/.config/opencode/AGENTS.md`, `agents/` | `dot_config/opencode/` | all |
-| `~/.agents/skills/` | `dot_agents/skills/` | all |
-| `~/.config/gh/config.yml` | `dot_config/gh/private_config.yml` | all |
-| `~/.config/starship/starship.toml` | `dot_config/starship/` | all |
-| `~/.config/wl/config` | `dot_config/wl/` | all |
-| `~/.gitconfig` | `dot_gitconfig` | all |
-| `~/.zshrc`, `~/.config/.zsh/` | `dot_zshrc.tmpl`, `dot_config/dot_zsh/` | mac + linux |
-| `~/.bashrc` | `dot_bashrc.tmpl` | mac + linux |
-| `~/.config/iterm2/`, `karabiner/` | `dot_config/` | mac |
-| `~/.ssh/config` | `private_dot_ssh/config.tmpl` | mac (+ per-OS agent) |
-| `~/.config/powershell/…` | `dot_config/powershell/` | windows |
+| Destination                                          | Source                                    | OS                   |
+| ---------------------------------------------------- | ----------------------------------------- | -------------------- |
+| `~/.config/opencode/opencode.jsonc`                  | `dot_config/opencode/opencode.jsonc.tmpl` | all                  |
+| `~/.config/opencode/AGENTS.md`, `agents/`, `skills/` | `dot_config/opencode/`                    | all                  |
+| `~/.agents/skills/`                                  | `dot_agents/skills/`                      | all                  |
+| `~/.config/gh/config.yml`                            | `dot_config/gh/private_config.yml`        | all                  |
+| `~/.config/starship/starship.toml`                   | `dot_config/starship/`                    | all                  |
+| `~/.config/wl/config`                                | `dot_config/wl/`                          | all                  |
+| `~/.gitconfig`                                       | `dot_gitconfig`                           | all                  |
+| `~/.zshrc`, `~/.config/.zsh/`                        | `dot_zshrc.tmpl`, `dot_config/dot_zsh/`   | mac + linux          |
+| `~/.bashrc`                                          | `dot_bashrc.tmpl`                         | mac + linux          |
+| `~/.config/iterm2/`, `karabiner/`                    | `dot_config/`                             | mac                  |
+| `~/.ssh/config`                                      | `private_dot_ssh/config.tmpl`             | mac (+ per-OS agent) |
+| `~/.config/powershell/…`                             | `dot_config/powershell/`                  | windows              |
 
 Per-OS inclusion is enforced via `{{ .chezmoi.os }}` guards in `.chezmoiignore`
 and templates.
@@ -61,7 +61,7 @@ Prompted on `chezmoi init`, stored in the machine-local
 
 - [chezmoi](https://www.chezmoi.io/install/)
 - [1Password CLI](https://developer.1password.com/docs/cli/get-started/) (`op`)
-  + the 1Password desktop app with the SSH agent enabled
+  - the 1Password desktop app with the SSH agent enabled
 - [OpenCode](https://opencode.ai) and Node.js (for `npx` MCP servers)
 - A local checkout of `pandium-mcp` (note its absolute path)
 
