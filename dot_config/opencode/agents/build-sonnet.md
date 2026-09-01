@@ -4,7 +4,7 @@ description: >
   context, runs tests, and reports back a structured summary. Invoked by the
   orchestrator agent, not directly. Model family: Claude (Anthropic).
 mode: subagent
-model: github-copilot/claude-sonnet-4.6
+model: github-copilot/claude-sonnet-5
 temperature: 0.2
 permission:
   edit: allow
