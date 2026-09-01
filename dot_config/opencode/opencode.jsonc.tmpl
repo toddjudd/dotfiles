@@ -7,6 +7,14 @@
   // prompting for git commands. Order matters: opencode applies the LAST matching
   // rule, so broad allows come first and any narrower asks/denies would come last.
   "permission": {
+    // Allow reading files in git repo roots across platforms without prompting.
+    // Order matters: opencode applies the LAST matching rule, so the broad
+    // allows below are fine as-is. Add narrower denies after if ever needed.
+    "external_directory": {
+      "C:/git/**": "allow",
+      "~/git/**": "allow",
+      "/mnt/c/git/**": "allow",
+    },
     "bash": {
       // All git commands are allowed without prompting, including mutating ones
       // (add/commit/checkout/fetch/pull/merge/rebase/push/reset/clean).
@@ -60,7 +68,7 @@
         "node",
         "{{ .pandiumMcpPath }}/build/index.js",
       ],
-      "enabled": true,
+      "enabled": false,
       "environment": {
         "PANDIUM_ENV": "sandbox",
         "PANDIUM_API_KEY": "op://kyov2mu6cfgk3i5bqnn4jjvr6a/Pandium Sandbox API/api_key",{{ if .mcpPath }}
@@ -99,11 +107,31 @@
         "node",
         "{{ .reduxMcpPath }}/build/index.js",
       ],
-      "enabled": true,
+      "enabled": false,
       "environment": {
         "REDUX_ENV": "production",
         "REDUX_API_BASE_URL": "https://integrations-redux-api.getwhiplash.com",
         "REDUX_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/s5bqr4jzwdksi2g6fsevqgkr5y/token",{{ if .mcpPath }}
+        "PATH": "{{ .mcpPath }}",{{ end }}
+      },
+    },
+    // Whiplash Sandbox - read-only MCP for the Whiplash /api/v2 REST API.
+    "whiplash-sandbox": {
+      "type": "local",
+      "command": [
+        "op",
+        "run",
+        "--account",
+        "whiplash",
+        "--",
+        "node",
+        "{{ .whiplashMcpPath }}/build/index.js",
+      ],
+      "enabled": false,
+      "environment": {
+        "WHIPLASH_ENV": "sandbox",
+        "WHIPLASH_API_BASE_URL": "https://sandbox.whiplash.app",
+        "WHIPLASH_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/bzf7oqofgw55wxxnnwlv6jmv2q/token",{{ if .mcpPath }}
         "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },

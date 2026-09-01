@@ -50,6 +50,10 @@ Prompted on `chezmoi init`, stored in the machine-local
 
 - `pandiumMcpPath` — absolute path (forward slashes) to your local
   `pandium-mcp` checkout. Injected into `opencode.jsonc`.
+- `reduxMcpPath` — absolute path (forward slashes) to your local
+  `integrations-redux-mcp` checkout. Injected into `opencode.jsonc`.
+- `whiplashMcpPath` — absolute path (forward slashes) to your local
+  `whiplash-mcp` checkout. Injected into `opencode.jsonc`.
 - `mcpPath` — optional `PATH` prepended into every MCP server `environment`.
   Needed on WSL for asdf shims, e.g.
   `/home/todd/.asdf/shims:/home/todd/.local/bin:/usr/local/bin:/usr/bin:/bin`.
