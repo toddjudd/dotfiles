@@ -115,6 +115,26 @@
         "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },
+     // Integration Redux
+    "integrations-redux-sandbox": {
+      "type": "local",
+      "command": [
+        "op",
+        "run",
+        "--account",
+        "whiplash",
+        "--",
+        "node",
+        "{{ .reduxMcpPath }}/build/index.js",
+      ],
+      "enabled": false,
+      "environment": {
+        "REDUX_ENV": "sandbox",
+        "REDUX_API_BASE_URL": "https://integrations-redux-api.sandbox.whiplash.app",
+        "REDUX_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/s5bqr4jzwdksi2g6fsevqgkr5y/sandbox-token",{{ if .mcpPath }}
+        "PATH": "{{ .mcpPath }}",{{ end }}
+      },
+    },
     // Whiplash Sandbox - read-only MCP for the Whiplash /api/v2 REST API.
     "whiplash-sandbox": {
       "type": "local",
@@ -131,7 +151,7 @@
       "environment": {
         "WHIPLASH_ENV": "sandbox",
         "WHIPLASH_API_BASE_URL": "https://sandbox.whiplash.app",
-        "WHIPLASH_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/bzf7oqofgw55wxxnnwlv6jmv2q/token",{{ if .mcpPath }}
+        "WHIPLASH_API_TOKEN": "op://3xner5e26bx6h4zrf32enmsdpu/bzf7oqofgw55wxxnnwlv6jmv2q/sandbox-token",{{ if .mcpPath }}
         "PATH": "{{ .mcpPath }}",{{ end }}
       },
     },
